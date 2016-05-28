@@ -1,0 +1,32 @@
+{
+  "name": "yama-epic-publisher",
+  "version": "1.0.0",
+  "description": "粉絲專頁 [YAMA EPIC Song](https://www.facebook.com/ClanYAMA/) 自動發文機器人",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://gitlab.com/LinZap/yama-epic-publisher.git"
+  },
+  "keywords": [
+    "zap"
+  ],
+  "author": "zap",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://gitlab.com/LinZap/yama-epic-publisher/issues"
+  },
+  "homepage": "https://gitlab.com/LinZap/yama-epic-publisher#README",
+  "dependencies": {
+    "cheerio": "^0.20.0",
+    "lodash": "^4.13.1",
+    "lowdb": "^0.13.0-beta-5",
+    "pg": "^4.5.5",
+    "request": "^2.72.0"
+  }
+}

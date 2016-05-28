@@ -1,0 +1,5 @@
+{
+	"phantom" : "phantomjs.exe",
+	"crawler" : "crawler.js",
+	"debug": true
+}

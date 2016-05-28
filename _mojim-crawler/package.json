@@ -1,0 +1,27 @@
+{
+  "name": "mojim-crawler",
+  "version": "1.0.0",
+  "description": "a crawler for (Mojim 魔鏡歌詞網)[https://mojim.com]",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://gitlab.com/LinZap/mojim-crawler.git"
+  },
+  "author": "Zap",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://gitlab.com/LinZap/mojim-crawler/issues"
+  },
+  "homepage": "https://gitlab.com/LinZap/mojim-crawler#README",
+  "dependencies": {
+    "cheerio": "^0.20.0",
+    "pg": "^4.5.5",
+    "request": "^2.72.0"
+  }
+}

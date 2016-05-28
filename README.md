@@ -33,7 +33,7 @@
 `_mojim-crawler/const.json`
 ```json
 {
-    ...
+    
 	"db":{
 		"user": "",
 		"password": "",
@@ -71,7 +71,7 @@ node bin/updater.js
 ### Google Crawler
 使用普通的 [Request](https://github.com/request/request) 無法正常的抓取 Google Search 的結果，因為 Google 針對機器人爬蟲有做一系列的防護措施。因此系統使用 [PhantomJS](http://phantomjs.org/) 進行 Human like 的 Google Search 擷取。
 
-**下載 [PhantomJS](http://phantomjs.org/download.html) **  
+**下載 [PhantomJS](http://phantomjs.org/download.html)**  
 您需要下載 [PhantomJS](http://phantomjs.org/) 的主程式，放置於 `_google-crawler`。以 `windows` 系統為例，需要將 `phantomjs.exe` 放在 `_google-crawler/` 目錄下即可。
 
 **設定爬蟲參數**  
@@ -106,15 +106,15 @@ npm install
 **設定 Google API Key 與 YouTube Channel ID**  
 `yama-epic-publisher/const.json`
 ```json
-...
+
   "youtube":{
       "key": "",
       "channelId": ""
   },
-...
+
 ```
 
-> 若您找不到自己的 Channel ID，請先前往 YouTube 並將切換成頻道帳號，然後點選這個連結進入([進階帳戶設定](https://www.youtube.com/account_advanced))。您可以在下方找到 `YouTube 頻道 ID：UCwA1gUVVzC....` 就是 Channel ID。
+> 若您找不到自己的 Channel ID，請先前往 YouTube 並將切換成頻道帳號，然後點選這個連結進入([進階帳戶設定](https://www.youtube.com/account_advanced))。您可以在下方找到 `YouTube 頻道 ID：UCwA1gUVVzC...` 就是 Channel ID。
 
 <br>
 **執行 YouTube detector**  
@@ -158,11 +158,11 @@ node bin/change-accesstoken.js [App ID] [App Secret] [AccessToken]
       "host": "",
       "port": 
   },
-...
+
 
   "graph":{
-      ...
-      "AccessToken": "..."
+      
+      "AccessToken": ""
   },
 ```
 
@@ -186,7 +186,7 @@ node bin/yama-epic-publisher.js -v
 
 ##進階調教
 系統能夠人工介入調整參數、關鍵字等，使自動撰寫的文章更加豐富、準確。
-待續...
+待續
 
 <br>
 ## MPL LICENSE
@@ -195,6 +195,6 @@ The contents of this file are subject to the Mozilla Public License
 Version 1.1 (the "License"); you may not use this file except in  
 compliance with the License. You may obtain a copy of the License at  
 https://www.mozilla.org/MPL/  
-...
+
 ```
 

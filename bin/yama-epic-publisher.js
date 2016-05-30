@@ -55,7 +55,7 @@ var mode = process.argv[2]=="-v",
 				]
 			*/
 			singer = pinfo? pinfo.csinger : filterStopwords(addition).join(" "),
-			gstring = pinfo? `"${singer}" official site` : `${singer} "offical site"`
+			gstring = pinfo? `"${singer}" official site` : `${singer} "official site"`
 			infosite =  yield google(yama_gen,gstring),
 
 			/*

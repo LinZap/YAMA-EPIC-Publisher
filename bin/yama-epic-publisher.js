@@ -25,6 +25,7 @@ var mode = process.argv[2]=="-v",
 	google = require('../_google-crawler/index'),
 	formatPost = require('../lib/fb-msgFormat'),
 	fbpublish = require('../lib/fb-publish'),
+	filterStopwords = require('../lib/filter-stopwords')
 
 	yama_gen = (function*(){
 
@@ -53,7 +54,7 @@ var mode = process.argv[2]=="-v",
 					{title, href}...
 				]
 			*/
-			singer = pinfo? pinfo.csinger : addition.join(" "),
+			singer = pinfo? pinfo.csinger : filterStopwords(addition.join(" ")),
 			gstring = pinfo? `"${singer}" official site` : `${singer} "offical site"`
 			infosite =  yield google(yama_gen,gstring),
 

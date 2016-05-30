@@ -25,7 +25,8 @@ var mode = process.argv[2]=="-v",
 	google = require('../_google-crawler/index'),
 	formatPost = require('../lib/fb-msgFormat'),
 	fbpublish = require('../lib/fb-publish'),
-	filterStopwords = require('../lib/filter-stopwords')
+	filterStopwords = require('../lib/filter-stopwords'),
+	q = require('../lib/gen-q'),
 
 	yama_gen = (function*(){
 
@@ -35,7 +36,7 @@ var mode = process.argv[2]=="-v",
 
 			/*
 				parse title, return format
-				{ sid, esinger, csinger, mid, emusic, cmusic }
+				{ sid, esinger, csinger, mid, emusic, cmusic, album }
 			*/
 			pinfo = yield parse_title(yama_gen,muinfo.title),
 			

@@ -131,7 +131,7 @@ begin
 	select array_agg(a.t)::varchar[]
 	from (select t from (
 			select lower(trim(unnest(regexp_matches(_title
-			,'([0-9A-Za-z]+)|([\u4e00-\u9fa5\x3130-\x318F\u3041-\u309F\u30A1-\u30FF\u31F0-\u31FF]+)|([\uFF41-\uFF5A\uFF21-\uFF3A]+)','g')))) as t
+			,'([0-9A-Za-z]+)|([\u4e00-\u9fa5]+)|([\u3041-\u309F\u30A1-\u30FF\u31F0-\u31FF]+)|([\x3130-\x318F]+)|([\uFF41-\uFF5A\uFF21-\uFF3A]+)','g')))) as t
 		) r where t <> ''
 	) a into _arr;
 	

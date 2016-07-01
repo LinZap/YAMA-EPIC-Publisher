@@ -89,8 +89,11 @@ function* parseData(){
 			title = $(that).children('h1').eq(0),
 			content = $(that).children('div').eq(0),
 			t_singer = title.children('a').eq(0),
-			t_album = title.children('a').eq(1),
-			t_musics = content.children('span').children('a'),
+			t_album = title.children('a').eq(1);
+
+		if(!t_album.length || !t_singer.length) continue;
+
+		var	t_musics = content.children('span').children('a'),
 			singer = t_singer.text().trim(),
 			album = t_album.text().trim(),
 			singer_url = BaseURL+t_singer.attr('href').trim(),

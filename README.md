@@ -19,7 +19,6 @@
 為了讓自動發文更加方便，系統能夠偵測一個您所屬的 YouTube Channel，您可以在上面建立數個不等的播放清單作為音樂分類，當您瀏覽到想分享的影片時，只需要將影片加入播放清單，透過 YouTube detector 就能自動發現新增的影片，並使用上述 Mojim Crawler 與 Google Crawler 的幫助下，自動發表一篇擁有豐富內容的文章。
 
 
-
 ## Build
 您也可以建立屬於您自己的自動發文機器人，但需要先準備以下項目，以及建立系統需要的環境：
 
@@ -45,6 +44,12 @@
 
 ```
 
+* `user`: 能夠登入資料庫的使用者
+* `password`: 該資料庫的使用者的密碼
+* `database`: 資料庫名稱 (預設`mojim`)
+* `host`: 資料庫 IP 位置
+* `port`: 資料庫連線埠號 (預設`5432`)
+
 **重新建立子系統資料庫**
 ```
 cd _mojim-crawler/
@@ -52,18 +57,22 @@ npm install
 
 node build/build.js
 ```
+
 **初始化爬蟲**
 ```
 node bin/init.js
 ```
-**執行爬蟲**
+
+**執行爬蟲 (只須執行一次)**
 ```
-node bin/crawler.js
+node bin/task.js
 ```
+
 **執行更新爬蟲**
 ```
 node bin/updater.js
 ```
+
 > 這裡請注意，更新爬蟲 `bin/updater.js` 執行的最佳策略是設定排程，以天為單位進行更新，而非手動執行。  
 > 資料庫名稱為 `mojim`，請勿修改。您可以在您的 PostgreSQL 中找到它。
 
@@ -80,14 +89,21 @@ node bin/updater.js
 {
 	"phantom" : "phantomjs.exe",
 	"crawler" : "crawler.js",
-	"debug": false
+	"debug": false,
+  "lang": "lang_ja"
 }
 ```
+
+* `phantom`: PhantomJS 執行檔名稱
+* `crawler`: 爬蟲主程式
+* `debug`: 是否將網頁輸出成圖片
+* `lang`: 以何種語系進行 Google 搜尋
 
 > 若您的 PhantomJS 主程式名稱不同，請在上述設定檔中修改。
 
 **測試爬蟲**  
 由於 PhantomJS 是一個沒有視窗的瀏覽器，您可以將 `_google-crawler/const.json` 中的 `debug` 參數設為 `true`，如此一來每次進行爬蟲時，都會將網頁拍照存放在當前目錄下，作為 debug 使用。
+
 ```
 cd _google-crawler/
 
@@ -99,11 +115,14 @@ node test/google.js [查詢字串]
 由於我們需要紀錄發表過的影片，因此系統使用 [lowdb](https://github.com/typicode/lowdb) 作為 YouTube 資料儲存的容器，lowdb 是一個 json-based 的檔案資料庫，由於使用 JSON 格式存放，它的概念與 NOSQL 相似，我們使用它來進行高效的資料存取。
 
 **安裝主系統必要套件**
+
 ```
 cd yama-epic-publisher/
 npm install
 ```
+
 **設定 Google API Key 與 YouTube Channel ID**  
+
 `yama-epic-publisher/const.json`
 ```json
 
@@ -114,20 +133,35 @@ npm install
 
 ```
 
+* `key`: Google YouTube API 使用金鑰
+* `channelId`: 你的 YouTube 頻道 ID
+
+
 > 若您找不到自己的 Channel ID，請先前往 YouTube 並將切換成頻道帳號，然後點選這個連結進入([進階帳戶設定](https://www.youtube.com/account_advanced))。您可以在下方找到 `YouTube 頻道 ID：UCwA1gUVVzC...` 就是 Channel ID。
 
 <br>
-**執行 YouTube detector**  
-執行後，您 Channel 上的**播放清單**與**影片**將被存放在本地的 `lowdb` 中，您可以在 `yama-epic-publisher/db_youtube.json` 中找到儲存的資料。
 
-系統會自動將「播放清單」
+**執行 YouTube detector**  
+執行以下指令，你的 Channel 上**播放清單**與**影片**將被存放在本地的 `lowdb` 中，您可以在 `yama-epic-publisher/db_youtube.json` 中找到儲存的資料。
+
 ```
 node bin/youtube-detetctor.js
 ```
 
+
 > 由於您會不斷在 YouTube 上添加影片到播放清單，因此最佳方案是設定排程執行 `bin/youtube-detetctor.js`，您可以設定每 6 個小時更新一次播放清單。 
 
 > 系統會自動將「播放清單」的名稱作為 [Facebook HashTag](https://www.facebook.com/help/587836257914341) 標註在文章內容中 ！也就是說，您可以將影片加入你想標註的 HashTag 同名的播放清單中，系統就會同時標註多個 HashTag。
+
+<br>
+
+**修復 `db_youtube.json`** 
+萬一 `db_youtube.json` 已經損毀或是遺失，可以執行以下程式進行復原，它將會比對您粉絲專頁上的文章，並重新計算那些影片還沒有發布
+```
+node bin/youtube-detetctor.js
+node bin/fix-youtube-db.js
+```
+
 <br>
 
 ### Publish to Facebook
@@ -135,6 +169,7 @@ node bin/youtube-detetctor.js
 首先您必須要擁有一個管理粉絲專頁的開發者 App (若沒有請申請一個)。前往 [Graph API Explorer](https://developers.facebook.com/tools/explorer/) 中，選擇欲管理粉絲專頁的 App，取得「粉絲專頁存取權杖 Page AccessToken」(請注意要選到正確的粉絲專頁)。然後將 AccessToken 複製下來，準備後續使用。
 
 <br>
+
 **Logn Time AccessToken**  
 從 Graph API Explorer 上複製的 AccessToken 只能存活一小段時間，便會過期。若您希望自動發文機器人能正常運作，需要長效的 AccessToken。
 
@@ -161,10 +196,14 @@ node bin/change-accesstoken.js [App ID] [App Secret] [AccessToken]
 
 
   "graph":{
-      
+      "url": "https://graph.facebook.com/v2.11",
       "AccessToken": ""
   },
 ```
+
+
+* `AccessToken`: 使用 `bin/change-accesstoken.js` 取得長效的 AccessToken
+
 
 **現在，一切就緒，自動 Publish**
 
@@ -174,14 +213,18 @@ node bin/change-accesstoken.js [App ID] [App Secret] [AccessToken]
 ```
 node bin/yama-epic-publisher.js
 ```
-執行後，會將發布文章的 URL 顯示在 CLI 上，或者直接前往粉絲專頁觀察。  
+
+執行後，會將發布文章的 URL 顯示在 CLI 上，或者直接前往粉絲專頁觀察。
+
 <br>
+
 **觀察模式**  
 若您想先預覽發表後的文章樣子，可以帶 `-v` 參數，系統不會發布文章，而只是將愈發表的內容顯示在 CLI 上供您檢視。
 
 ```
 node bin/yama-epic-publisher.js -v
 ```
+
 <br>
 
 ##進階調教
@@ -189,7 +232,15 @@ node bin/yama-epic-publisher.js -v
 待續
 
 <br>
-## MPL LICENSE
+
+
+## System Requirement
+* Node.js >8.0
+
+<br>
+
+## MPL LICENSE  
+
 ```
 The contents of this file are subject to the Mozilla Public License  
 Version 1.1 (the "License"); you may not use this file except in  
@@ -197,4 +248,3 @@ compliance with the License. You may obtain a copy of the License at
 https://www.mozilla.org/MPL/  
 
 ```
-

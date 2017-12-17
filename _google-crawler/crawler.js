@@ -4,7 +4,8 @@ var system = require('system'),
 	fs = require('fs'),
 	consts = require('./const'),
 	q = args[1],
-	url = "https://www.google.com.tw/search?q="+q
+	lang = consts['lang'] || 'lang_ja',
+	url = "https://www.google.com.tw/search?lr="+lang+"&q="+q;
 
 page.open(url , function(status) {
 

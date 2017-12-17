@@ -29,6 +29,7 @@ var ydb = require('../lib/youtube-db')
 				itemnext =itemres.nextpage
 				itemres.data.forEach(item=>{ 
 					ydb.addMusic(Object.assign(item,{tag:[playlists[listid].title]})) 
+					console.log('[Youtube Crawler] addMusic: ' + item.title);
 				})
 			}
 		}

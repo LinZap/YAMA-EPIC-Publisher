@@ -13,7 +13,7 @@
 	},
 
 	"graph":{
-		"url": "https://graph.facebook.com/v2.6",
+		"url": "https://graph.facebook.com/v2.11",
 		"AccessToken": ""
 	},
 
@@ -31,6 +31,7 @@
 		"remix",
 		"mix",
 		"official",
-		"lyrics"
+		"lyrics",
+		"short"
 	]
 }

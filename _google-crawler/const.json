@@ -1,5 +1,6 @@
 {
 	"phantom" : "phantomjs.exe",
 	"crawler" : "crawler.js",
-	"debug": false
+	"debug": false,
+	"lang": "lang_ja"
 }

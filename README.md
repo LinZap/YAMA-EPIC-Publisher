@@ -90,7 +90,7 @@ node bin/updater.js
 	"phantom" : "phantomjs.exe",
 	"crawler" : "crawler.js",
 	"debug": false,
-  "lang": "lang_ja"
+	"lang": "lang_ja"
 }
 ```
 

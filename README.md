@@ -155,8 +155,9 @@ node bin/youtube-detetctor.js
 
 <br>
 
-**修復 `db_youtube.json`** 
-萬一 `db_youtube.json` 已經損毀或是遺失，可以執行以下程式進行復原，它將會比對您粉絲專頁上的文章，並重新計算那些影片還沒有發布
+**修復 `db_youtube.json`**  
+萬一 `db_youtube.json` 已經損毀或是遺失，可以執行以下程式進行復原，它將會比對您粉絲專頁上的文章，並重新計算那些影片還沒有發布  
+
 ```
 node bin/youtube-detetctor.js
 node bin/fix-youtube-db.js

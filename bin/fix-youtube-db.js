@@ -8,7 +8,6 @@ const request = require('request-promise'),
 
 	let uri = `https://graph.facebook.com/v2.11/me/feed?access_token=${AccessToken}&fields=link,name,description&limit=100`,
 		json = true;
-	db.clearTask();
 	while(uri){
 		try{
 			const res = await request({uri,json});	
@@ -16,14 +15,12 @@ const request = require('request-promise'),
 				let {link,name,description,id} = res.data[i],
 					qs = getQueryString(link),
 					vid = qs['?v'];
-				if(!vid) continue;
-				db.addMusic({
-					id:vid,
-					des:description,
-					title:name,
-					tag:[],
-				})
-				console.log(`fix: ${id} title: ${name}`);
+				if(!vid) {
+					console.log('can not parse url',res.data[i]);
+					continue;
+				}
+				db.deleteTask({id:vid})
+				console.log(`deleted: ${id} vid: ${vid}`);
 			}
 			uri = res.paging.next;	
 		}
@@ -38,8 +35,7 @@ const request = require('request-promise'),
 			return querystring.parse(new URL(link).search)
 		}
 		catch(e){
-			console.log('can not parse url: '+link);
-			return {} 
+			return {};
 		}
 	}
 })();

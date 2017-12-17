@@ -30,9 +30,8 @@ var mode = process.argv[2]=="-v",
 
 	yama_gen = (function*(){
 
-		var task = getTask(),
-			muinfo = getMusicInfo(task),
-
+		var {task,info} = getTaskAndMusicInfo(),
+			muinfo = info,
 
 			/*
 				parse title, return format
@@ -103,32 +102,31 @@ var mode = process.argv[2]=="-v",
 yama_gen.next()
 
 
-
 /*
 	step 1
-	get a task or exit
-*/
-function getTask(){
-	var task = ydb.getTask()
-	if(!task){
-		console.log("no peding task")
-		process.exit()
-	}
-	return task
-}
-
-
-/*
-	step 2
-	get music info, return
+	get task and music info
+	return
 	{
-		id, title, des, tag
+		@info
+		@task
 	}
 */
-function getMusicInfo(task){
-	var info = ydb.getMusic(task.id)
+function getTaskAndMusicInfo(){
+
+	var NA = true;
+	var task, info
+	while(NA){
+		task = ydb.getTask()
+		if(!task){
+			console.log("no peding task")
+			process.exit()
+		}
+		info = ydb.getMusic(task.id)
+		if(info.title=="Deleted video") removeTask(task);
+		else NA = false	
+	}
 	console.log('task',info.title);
-	return info
+	return {info,task}
 }
 
 /*

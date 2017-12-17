@@ -208,7 +208,7 @@ node bin/change-accesstoken.js [App ID] [App Secret] [AccessToken]
 **現在，一切就緒，自動 Publish**
 
 經過上述的系統建置，應該已經頭昏眼花了。現在終於可以進行自動發文。  
-假設您的 Channel 已經有數個播放清單，且其種含有數個影片。在執行 `YouTube detector` 後，會將尚未發布的影片紀錄在 `lowdb' '(yama-epic-publisher/db_youtube.json)` 中，這時候就可以執行自動 Publish。
+假設您的 Channel 已經有數個播放清單，且其種含有數個影片。在執行 `YouTube detector` 後，會將尚未發布的影片紀錄在 `db_youtube.json` 中，這時候就可以執行自動 Publish。
 
 ```
 node bin/yama-epic-publisher.js
